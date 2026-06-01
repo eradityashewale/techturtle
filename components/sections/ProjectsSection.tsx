@@ -33,6 +33,19 @@ const projects = [
     mockType: "pharma",
   },
   {
+    title: "Portfolio",
+    category: "Personal Portfolio",
+    description:
+      "A sleek personal portfolio website showcasing projects, skills, and professional experience with a modern design and smooth interactions.",
+    year: "2025",
+    tags: ["React", "Tailwind CSS", "Vercel"],
+    gradient: "from-[#1a0e2e] to-[#2d1654]",
+    accent: "#a855f7",
+    stat: "Portfolio",
+    url: "https://portfolio-weld-gamma-6xd8xavkz7.vercel.app/",
+    mockType: "portfolio",
+  },
+  {
     title: "Nexus Commerce",
     category: "E-Commerce Platform",
     description:
@@ -111,6 +124,31 @@ function MockUI({ type, accent }: { type: string; accent: string }) {
               {s}
             </span>
           ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (type === "portfolio") {
+    return (
+      <div className="relative z-10 w-64">
+        {/* Browser chrome */}
+        <div className="rounded-xl overflow-hidden border border-white/20 shadow-2xl">
+          <div className="flex items-center gap-1.5 px-3 py-2 bg-white/10 backdrop-blur-sm">
+            <span className="w-2 h-2 rounded-full bg-red-400/70" />
+            <span className="w-2 h-2 rounded-full bg-yellow-400/70" />
+            <span className="w-2 h-2 rounded-full bg-green-400/70" />
+            <span className="mx-auto text-[8px] text-white/30 font-mono truncate px-2">portfolio.vercel.app</span>
+          </div>
+          <div className="relative w-full h-36">
+            <Image
+              src="/portfolio-preview.png"
+              alt="Portfolio website preview"
+              fill
+              className="object-cover object-top"
+              sizes="256px"
+            />
+          </div>
         </div>
       </div>
     );
