@@ -40,6 +40,19 @@ const categories = [
       { name: "Postgres", color: "#336791" },
     ],
   },
+  {
+    name: "Tableau",
+    items: [
+      { name: "Desktop", color: "#e97627" },
+      { name: "Server", color: "#e97627" },
+      { name: "Cloud", color: "#e97627" },
+      { name: "Prep", color: "#e97627" },
+      { name: "Public", color: "#e97627" },
+      { name: "Pulse", color: "#e97627" },
+      { name: "CRM Anlyt", color: "#e97627" },
+      { name: "Hyper API", color: "#e97627" },
+    ],
+  },
 ];
 
 function TechIcon({ name, color }: { name: string; color: string }) {
@@ -96,14 +109,25 @@ export default function TechStackSection() {
         </div>
 
         <div className="space-y-8">
-          {categories.map((cat, ci) => (
+          {categories.map((cat, ci) => {
+            const isTableau = cat.name === "Tableau";
+            return (
             <FadeUp key={cat.name} delay={ci * 0.1}>
-              <div className="flex flex-col sm:flex-row gap-4">
+              {isTableau && (
+                <div className="h-px bg-gradient-to-r from-[#e97627]/30 via-[#e97627]/10 to-transparent mb-8" />
+              )}
+              <div className={`flex flex-col sm:flex-row gap-4 ${isTableau ? "p-5 rounded-[22px] border border-[#e97627]/15 bg-[#e97627]/3" : ""}`}>
                 {/* Category label */}
                 <div className="sm:w-28 flex-shrink-0 pt-4 sm:pt-5">
-                  <span className="text-[11px] font-medium text-white/25 uppercase tracking-[3px]">
+                  <span
+                    className="text-[11px] font-medium uppercase tracking-[3px]"
+                    style={{ color: isTableau ? "#e97627" : "rgba(255,255,255,0.25)" }}
+                  >
                     {cat.name}
                   </span>
+                  {isTableau && (
+                    <p className="text-[10px] text-white/25 mt-1 normal-case tracking-normal">All products</p>
+                  )}
                 </div>
 
                 {/* Tech grid */}
@@ -126,7 +150,8 @@ export default function TechStackSection() {
                 </div>
               </div>
             </FadeUp>
-          ))}
+            );
+          })}
         </div>
 
         {/* Bottom callout */}

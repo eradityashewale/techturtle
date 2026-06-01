@@ -11,6 +11,7 @@ const services = [
     description:
       "Custom web and mobile applications crafted with modern frameworks. From MVPs to enterprise platforms, we build software that scales.",
     tags: ["React", "Next.js", "Node.js", "TypeScript"],
+    wide: false,
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
         <polyline points="16 18 22 12 16 6" />
@@ -24,6 +25,7 @@ const services = [
     description:
       "Intelligent systems that learn and adapt. We integrate cutting-edge AI to automate workflows, reduce costs, and unlock new capabilities.",
     tags: ["LLMs", "ML Pipelines", "Agents", "APIs"],
+    wide: false,
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
         <path d="M12 2a4 4 0 0 1 4 4v2a4 4 0 0 1-8 0V6a4 4 0 0 1 4-4z"/>
@@ -38,6 +40,7 @@ const services = [
     description:
       "Resilient, secure, and cost-optimized cloud environments. We architect infrastructure that handles millions of users without breaking a sweat.",
     tags: ["AWS", "GCP", "Kubernetes", "Terraform"],
+    wide: false,
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
         <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/>
@@ -50,10 +53,26 @@ const services = [
     description:
       "Beautiful interfaces that don't just look stunning — they convert. We design with purpose, combining aesthetics with usability at every touch point.",
     tags: ["UI/UX", "Design Systems", "Prototyping", "Branding"],
+    wide: false,
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
         <circle cx="12" cy="12" r="10"/>
         <path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/>
+      </svg>
+    ),
+  },
+  {
+    number: "05",
+    title: "Tableau Training & Consulting",
+    description:
+      "End-to-end Tableau expertise — from one-on-one tutoring to enterprise rollouts. Whether you're learning the basics or optimising a complex Server deployment, we cover every product in the Tableau ecosystem.",
+    tags: ["Tableau Desktop", "Tableau Server", "Tableau Cloud", "Tableau Prep", "Tableau Public", "Tableau Pulse"],
+    wide: true,
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <rect x="3" y="3" width="18" height="18" rx="2"/>
+        <path d="M3 9h18M9 21V9"/>
+        <path d="M15 9v6M15 18v.01"/>
       </svg>
     ),
   },
@@ -88,72 +107,129 @@ export default function ServicesSection() {
 
         {/* Cards grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {services.map((service, i) => (
-            <motion.div
-              key={service.number}
-              className="relative p-7 rounded-[24px] border transition-all duration-400 cursor-default group overflow-hidden"
-              style={{
-                borderColor: hoveredIndex === i ? "rgba(79,124,255,0.3)" : "rgba(255,255,255,0.07)",
-                background:
-                  hoveredIndex === i
-                    ? "rgba(79,124,255,0.06)"
-                    : "rgba(255,255,255,0.03)",
-              }}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.6, delay: i * 0.1, ease: [0.215, 0.61, 0.355, 1] }}
-              onMouseEnter={() => setHoveredIndex(i)}
-              onMouseLeave={() => setHoveredIndex(null)}
-            >
-              {/* Glow on hover */}
+          {services.map((service, i) => {
+            const isTableau = service.wide;
+            const accentColor = isTableau ? "#e97627" : "#4f7cff";
+            const isHovered = hoveredIndex === i;
+
+            return (
               <motion.div
-                className="absolute top-0 right-0 w-48 h-48 rounded-full blur-3xl pointer-events-none"
-                animate={{
-                  opacity: hoveredIndex === i ? 0.12 : 0,
-                  scale: hoveredIndex === i ? 1 : 0.7,
-                }}
-                transition={{ duration: 0.4 }}
-                style={{ background: "#4f7cff" }}
-              />
-
-              {/* Number */}
-              <span className="text-[11px] text-white/20 font-mono mb-6 block">{service.number}</span>
-
-              {/* Icon */}
-              <div
-                className="w-12 h-12 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300"
+                key={service.number}
+                className={`relative p-7 rounded-[24px] border transition-all duration-400 cursor-default group overflow-hidden ${
+                  isTableau ? "md:col-span-2" : ""
+                }`}
                 style={{
-                  background: hoveredIndex === i ? "rgba(79,124,255,0.2)" : "rgba(255,255,255,0.06)",
-                  color: hoveredIndex === i ? "#4f7cff" : "rgba(255,255,255,0.6)",
+                  borderColor: isHovered
+                    ? `${accentColor}50`
+                    : isTableau
+                    ? "rgba(233,118,39,0.18)"
+                    : "rgba(255,255,255,0.07)",
+                  background: isHovered
+                    ? `${accentColor}08`
+                    : isTableau
+                    ? "rgba(233,118,39,0.04)"
+                    : "rgba(255,255,255,0.03)",
                 }}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.6, delay: (i % 4) * 0.1, ease: [0.215, 0.61, 0.355, 1] }}
+                onMouseEnter={() => setHoveredIndex(i)}
+                onMouseLeave={() => setHoveredIndex(null)}
               >
-                {service.icon}
-              </div>
+                {/* Glow on hover */}
+                <motion.div
+                  className="absolute top-0 right-0 w-64 h-64 rounded-full blur-3xl pointer-events-none"
+                  animate={{ opacity: isHovered ? 0.1 : 0, scale: isHovered ? 1 : 0.7 }}
+                  transition={{ duration: 0.4 }}
+                  style={{ background: accentColor }}
+                />
 
-              {/* Title */}
-              <h3 className="text-xl font-semibold mb-3 text-white/90 group-hover:text-white transition-colors">
-                {service.title}
-              </h3>
+                <div className={isTableau ? "lg:flex lg:gap-10" : ""}>
+                  {/* Left / main content */}
+                  <div className={isTableau ? "lg:flex-1" : ""}>
+                    <span className="text-[11px] text-white/20 font-mono mb-6 block">{service.number}</span>
 
-              {/* Description */}
-              <p className="text-white/45 text-[15px] leading-relaxed mb-6 group-hover:text-white/60 transition-colors">
-                {service.description}
-              </p>
+                    {/* Icon */}
+                    <div
+                      className="w-12 h-12 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300"
+                      style={{
+                        background: isHovered ? `${accentColor}28` : "rgba(255,255,255,0.06)",
+                        color: isHovered ? accentColor : "rgba(255,255,255,0.6)",
+                      }}
+                    >
+                      {service.icon}
+                    </div>
 
-              {/* Tags */}
-              <div className="flex flex-wrap gap-2">
-                {service.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-3 py-1 text-[11px] font-medium rounded-lg border border-white/8 text-white/40 group-hover:border-white/14 group-hover:text-white/60 transition-all"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
-          ))}
+                    <div className="flex items-center gap-3 mb-3">
+                      <h3 className="text-xl font-semibold text-white/90 group-hover:text-white transition-colors">
+                        {service.title}
+                      </h3>
+                      {isTableau && (
+                        <span
+                          className="px-2.5 py-0.5 text-[10px] font-semibold rounded-full"
+                          style={{ background: "rgba(233,118,39,0.18)", color: "#e97627" }}
+                        >
+                          All Products
+                        </span>
+                      )}
+                    </div>
+
+                    <p className="text-white/45 text-[15px] leading-relaxed mb-6 group-hover:text-white/60 transition-colors">
+                      {service.description}
+                    </p>
+
+                    {!isTableau && (
+                      <div className="flex flex-wrap gap-2">
+                        {service.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="px-3 py-1 text-[11px] font-medium rounded-lg border border-white/8 text-white/40 group-hover:border-white/14 group-hover:text-white/60 transition-all"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Tableau product grid — only shown for the wide card */}
+                  {isTableau && (
+                    <div className="mt-8 lg:mt-0 lg:w-[420px] xl:w-[480px] flex-shrink-0">
+                      <p className="text-[11px] text-white/30 uppercase tracking-[3px] font-medium mb-4">
+                        Covered Products
+                      </p>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                        {[
+                          { name: "Tableau Desktop", desc: "Build & explore dashboards locally", icon: "🖥️" },
+                          { name: "Tableau Server", desc: "On-premise publish & govern", icon: "🗄️" },
+                          { name: "Tableau Cloud", desc: "Fully hosted SaaS platform", icon: "☁️" },
+                          { name: "Tableau Prep", desc: "Visual data cleaning & shaping", icon: "🔧" },
+                          { name: "Tableau Public", desc: "Free publishing & community", icon: "🌐" },
+                          { name: "Tableau Pulse", desc: "AI-driven metric alerts", icon: "📡" },
+                        ].map((product) => (
+                          <div
+                            key={product.name}
+                            className="p-3.5 rounded-[16px] border transition-all duration-300 group/card"
+                            style={{
+                              borderColor: isHovered ? "rgba(233,118,39,0.25)" : "rgba(255,255,255,0.08)",
+                              background: isHovered ? "rgba(233,118,39,0.07)" : "rgba(255,255,255,0.03)",
+                            }}
+                          >
+                            <span className="text-lg mb-2 block">{product.icon}</span>
+                            <p className="text-[12px] font-semibold text-white/80 mb-1 leading-tight">
+                              {product.name}
+                            </p>
+                            <p className="text-[11px] text-white/35 leading-tight">{product.desc}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

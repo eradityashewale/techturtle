@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { FadeUp, AnimatedWords } from "@/components/ui/AnimatedText";
 
@@ -88,28 +89,28 @@ const projects = [
 function MockUI({ type, accent }: { type: string; accent: string }) {
   if (type === "health") {
     return (
-      <div className="relative z-10 w-52">
-        <div className="rounded-2xl border border-white/15 bg-white/8 p-4 backdrop-blur-sm">
-          <div className="flex items-center gap-2 mb-3">
-            <div className="w-6 h-6 rounded-lg flex items-center justify-center" style={{ background: `${accent}30` }}>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={accent} strokeWidth="2.5">
-                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
-              </svg>
-            </div>
-            <div className="h-2 rounded-full bg-white/25 flex-1" />
-          </div>
-          <div className="grid grid-cols-2 gap-2 mb-3">
-            {["Sports Rehab", "Back Pain", "Laser Therapy", "Shockwave"].map((s) => (
-              <div key={s} className="px-2 py-1.5 rounded-lg text-[8px] font-medium text-center" style={{ background: `${accent}18`, color: accent }}>
-                {s}
-              </div>
-            ))}
-          </div>
-          <div className="h-7 rounded-lg w-full" style={{ background: `${accent}30` }}>
-            <div className="h-full flex items-center justify-center text-[9px] font-semibold" style={{ color: accent }}>
-              Book Appointment →
-            </div>
-          </div>
+      <div className="relative z-10 flex flex-col items-center gap-4">
+        {/* Actual Phyzio logo */}
+        <div className="relative w-56 h-28 drop-shadow-2xl">
+          <Image
+            src="/phyzio-logo.png"
+            alt="Phoenix — The Physiotherapy Clinic"
+            fill
+            className="object-contain"
+            sizes="224px"
+          />
+        </div>
+        {/* Service pills below logo */}
+        <div className="flex flex-wrap justify-center gap-2">
+          {["Sports Rehab", "Back Pain", "Laser Therapy", "Shockwave"].map((s) => (
+            <span
+              key={s}
+              className="px-2.5 py-1 rounded-full text-[9px] font-medium backdrop-blur-sm"
+              style={{ background: `${accent}20`, color: accent, border: `1px solid ${accent}30` }}
+            >
+              {s}
+            </span>
+          ))}
         </div>
       </div>
     );
@@ -117,29 +118,28 @@ function MockUI({ type, accent }: { type: string; accent: string }) {
 
   if (type === "pharma") {
     return (
-      <div className="relative z-10 w-52">
-        <div className="rounded-2xl border border-white/15 bg-white/8 p-4 backdrop-blur-sm">
-          <div className="flex items-center gap-2 mb-3">
-            <div className="w-6 h-6 rounded-lg flex items-center justify-center" style={{ background: `${accent}30` }}>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={accent} strokeWidth="2.5">
-                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
-              </svg>
-            </div>
-            <span className="text-[10px] font-semibold" style={{ color: accent }}>Astacon Pharma</span>
-          </div>
-          <div className="space-y-2 mb-3">
-            {["Committed to Good Health", "Quality Manufacturing", "Research & Development"].map((item, idx) => (
-              <div key={item} className="flex items-center gap-2">
-                <div className="w-1 h-1 rounded-full" style={{ background: idx === 0 ? accent : "rgba(255,255,255,0.2)" }} />
-                <div className="h-1.5 rounded-full bg-white/15" style={{ width: `${[80, 65, 70][idx]}%` }} />
-              </div>
-            ))}
-          </div>
-          <div className="h-6 rounded-lg w-full" style={{ background: `${accent}25` }}>
-            <div className="h-full flex items-center justify-center text-[9px] font-medium" style={{ color: accent }}>
-              Explore Products →
-            </div>
-          </div>
+      <div className="relative z-10 flex flex-col items-center gap-4">
+        {/* Actual Astacon logo */}
+        <div className="relative w-64 h-16 rounded-xl overflow-hidden shadow-2xl">
+          <Image
+            src="/astacon-logo.png"
+            alt="Astacon Pharmaceutical Pvt. Ltd."
+            fill
+            className="object-contain object-center"
+            sizes="256px"
+          />
+        </div>
+        {/* Tagline pills */}
+        <div className="flex flex-wrap justify-center gap-2">
+          {["Good Health", "Quality Mfg.", "R&D", "Consort for Wellbeing"].map((s) => (
+            <span
+              key={s}
+              className="px-2.5 py-1 rounded-full text-[9px] font-medium backdrop-blur-sm"
+              style={{ background: `${accent}20`, color: accent, border: `1px solid ${accent}30` }}
+            >
+              {s}
+            </span>
+          ))}
         </div>
       </div>
     );
